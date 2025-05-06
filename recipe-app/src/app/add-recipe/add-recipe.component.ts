@@ -9,9 +9,13 @@ import {
 import { RecipesService } from '../services/recipes.service';
 import { Recipe } from '../interfaces/recipe.interface';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-add-recipe',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   templateUrl: './add-recipe.component.html',
   styleUrl: './add-recipe.component.scss',
 })

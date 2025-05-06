@@ -18,11 +18,14 @@ export class HomeComponent {
   filteredRecipes!: Recipe[];
   dbRecipes!: Recipe[];
   errorMessage: any = '';
+  dbSubscription: any;
 
-  constructor(recipesService: RecipesService) {
-    this.recipes = recipesService.recipes;
+  constructor(private recipesService: RecipesService) {}
+
+  ngOnInit(){
+    this.recipes = this.recipesService.recipes;
     try {
-      recipesService.getAllRecipes().subscribe({
+      this.recipesService.getAllRecipes().subscribe({
         next: (response) => {
           console.log(response);
           this.filteredRecipes = response.recipes;
@@ -36,7 +39,8 @@ export class HomeComponent {
     } catch (error) {
       this.errorMessage = error;
     }
-    db.subscribeQuery({ recipes: {} }, (res) => {
+
+    this.dbSubscription = db.subscribeQuery({ recipes: {} }, (res) => {
       if (res.data) {
         this.dbRecipes = res.data.recipes;
       }
@@ -44,6 +48,10 @@ export class HomeComponent {
         this.errorMessage = res.error;
       }
     });
+  }
+
+  ngOnDestroy(){
+    this.dbSubscription();
   }
 
   filterValues() {

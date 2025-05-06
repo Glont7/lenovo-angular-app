@@ -1,6 +1,7 @@
 import { i, init } from '@instantdb/core';
+import {environment} from '../../environments/environment'
 
-const API_ID = '5b50c930-746e-4bd9-bdb0-05883a47619d';
+const API_ID = environment.API_ID;
 const schema = i.schema({
   entities: {
     recipes: i.entity({
